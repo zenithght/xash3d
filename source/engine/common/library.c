@@ -164,9 +164,9 @@ static void PerformBaseRelocation( MEMORYMODULE *module, DWORD delta )
 		for( ; relocation->VirtualAddress > 0; )
 		{
 			byte	*dest = (byte *)CALCULATE_ADDRESS( codeBase, relocation->VirtualAddress );
-			word	*relInfo = (word *)((byte *)relocation + IMAGE_SIZEOF_BASE_RELOCATION );
+			word	*relInfo = (word *)((byte *)relocation + sizeof(IMAGE_BASE_RELOCATION));
 
-			for( i = 0; i<((relocation->SizeOfBlock-IMAGE_SIZEOF_BASE_RELOCATION) / 2); i++, relInfo++ )
+			for (i = 0; i<((relocation->SizeOfBlock - sizeof(IMAGE_BASE_RELOCATION)) / 2); i++, relInfo++)
 			{
 				DWORD	*patchAddrHL;
 				int	type, offset;

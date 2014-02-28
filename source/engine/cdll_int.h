@@ -40,7 +40,7 @@ typedef struct cmdalias_s
 // this file is included by both the engine and the client-dll,
 // so make sure engine declarations aren't done twice
 
-typedef int HSPRITE;	// handle to a graphic
+#define HSPRITE int // handle to a graphic
 typedef int (*pfnUserMsgHook)( const char *pszName, int iSize, void *pbuf );
 
 #include "wrect.h"
