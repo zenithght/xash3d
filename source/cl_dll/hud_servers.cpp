@@ -6,13 +6,13 @@
 //=============================================================================
 
 // hud_servers.cpp
+#include <winsock.h>
 #include "hud.h"
 #include "cl_util.h"
 #include "hud_servers_priv.h"
 #include "hud_servers.h"
 #include "net_api.h"
 #include <string.h>
-#include <winsock.h>
 
 static int	context_id;
 

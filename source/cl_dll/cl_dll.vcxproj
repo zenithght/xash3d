@@ -103,6 +103,7 @@
       <OutputFile>..\temp\cl_dll\!debug/client.dll</OutputFile>
       <ImportLibrary>.\..\temp\cl_dll\!debug\client.lib</ImportLibrary>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;winmm.lib;../utils/vgui/lib/win32_vc6/vgui.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <CustomBuildStep>
       <Command>copy $(TargetDir)client.dll "D:\Xash3D\valve\cl_dlls\client.dll"</Command>
@@ -147,11 +148,17 @@
       <OutputFile>..\temp\cl_dll\!release/client.dll</OutputFile>
       <ImportLibrary>.\..\temp\cl_dll\!release\client.lib</ImportLibrary>
       <AdditionalDependencies>winmm.lib;../utils/vgui/lib/win32_vc6/vgui.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <CustomBuildStep>
       <Command>copy $(TargetDir)client.dll "D:\Xash3D\valve\cl_dlls\client.dll"</Command>
       <Outputs>D:\Xash3D\valve\cl_dlls\client.dll;%(Outputs)</Outputs>
     </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <Link>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\dlls\crossbow.cpp" />

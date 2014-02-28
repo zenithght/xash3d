@@ -8,6 +8,7 @@
 // in_win.c -- windows 95 mouse and joystick code
 // 02/21/97 JCB Added extended DirectInput code to support external controllers.
 
+#include "windows.h"
 #include "hud.h"
 #include "cl_util.h"
 #include "camera.h"
@@ -19,7 +20,6 @@
 #include "in_defs.h"
 #include "../engine/keydefs.h"
 #include "view.h"
-#include "windows.h"
 
 #define MOUSE_BUTTON_COUNT 5
 

@@ -5,6 +5,7 @@
 // $NoKeywords: $
 //=============================================================================
 
+#include "windows.h"
 #include "hud.h"
 #include "cl_util.h"
 #include "camera.h"
@@ -14,8 +15,6 @@
 #include "const.h"
 #include "camera.h"
 #include "in_defs.h"
-
-#include "windows.h"
 
 float CL_KeyState (kbutton_t *key);
 
