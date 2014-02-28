@@ -1459,12 +1459,12 @@ void CTestHull :: Spawn( entvars_t *pevMasterNode )
 
 	if ( WorldGraph.m_fGraphPresent )
 	{// graph loaded from disk, so we don't need the test hull
-		SetThink ( SUB_Remove );
+		SetThink(&CBaseEntity::SUB_Remove);
 		pev->nextthink = gpGlobals->time;
 	}
 	else
 	{
-		SetThink ( DropDelay );
+		SetThink(&CTestHull::DropDelay);
 		pev->nextthink = gpGlobals->time + 1;
 	}
 
@@ -1484,7 +1484,7 @@ void CTestHull::DropDelay ( void )
 
 	UTIL_SetOrigin ( VARS(pev), WorldGraph.m_pNodes[ 0 ].m_vecOrigin );
 
-	SetThink ( CallBuildNodeGraph );
+	SetThink(&CTestHull::CallBuildNodeGraph);
 
 	pev->nextthink = gpGlobals->time + 1;
 }
@@ -1632,7 +1632,7 @@ void CTestHull :: BuildNodeGraph( void )
 	float	flDist;
 	int		step;
 
-	SetThink ( SUB_Remove );// no matter what happens, the hull gets rid of itself.
+	SetThink(&CBaseEntity::SUB_Remove);// no matter what happens, the hull gets rid of itself.
 	pev->nextthink = gpGlobals->time;
 
 // 	malloc a swollen temporary connection pool that we trim down after we know exactly how many connections there are.
@@ -1744,7 +1744,7 @@ void CTestHull :: BuildNodeGraph( void )
 	{
 		ALERT ( at_aiconsole, "**ConnectVisibleNodes FAILED!\n" );
 		
-		SetThink ( ShowBadNode );// send the hull off to show the offending node.
+		SetThink(&CTestHull::ShowBadNode);// send the hull off to show the offending node.
 		//pev->solid = SOLID_NOT;
 		pev->origin = WorldGraph.m_pNodes[ iBadNode ].m_vecOrigin;
 		
@@ -2733,13 +2733,14 @@ void CGraph::HashChoosePrimes(int TableSize)
     // We divide this interval into 16 equal sized zones. We want to find
     // one prime number that best represents that zone.
     //
-    for (int iZone = 1, iPrime = 0; iPrime < 16; iZone += Spacing)
+	int iZone, iPrime, jPrime;
+    for (iZone = 1, iPrime = 0; iPrime < 16; iZone += Spacing)
     {
         // Search for a prime number that is less than the target zone
         // number given by iZone.
         //
         int Lower = Primes[0];
-        for (int jPrime = 0; Primes[jPrime] != 0; jPrime++)
+        for (jPrime = 0; Primes[jPrime] != 0; jPrime++)
         {
             if (jPrime != 0 && TableSize % Primes[jPrime] == 0) continue;
             int Upper = Primes[jPrime];
@@ -2789,7 +2790,7 @@ void CGraph::SortNodes(void)
 	// After assigning new node numbers to everything, we move
 	// things and patchup the links.
 	//
-	int iNodeCnt = 0;
+	int iNodeCnt = 0, i, j;
 	m_pNodes[0].m_iPreviousNode = iNodeCnt++;
 	for (int i = 1; i < m_cNodes; i++)
 	{
@@ -2800,7 +2801,7 @@ void CGraph::SortNodes(void)
 	{
 		// Run through all of this node's neighbors
 		//
-		for (int j = 0 ; j < m_pNodes[i].m_cNumLinks; j++ )
+		for (j = 0 ; j < m_pNodes[i].m_cNumLinks; j++ )
 		{
 			int iDestNode = INodeLink(i, j);
 			if (m_pNodes[iDestNode].m_iPreviousNode == UNNUMBERED_NODE)
@@ -2847,6 +2848,8 @@ void CGraph::SortNodes(void)
 
 void CGraph::BuildLinkLookups(void)
 {
+	int i;
+
 	m_nHashLinks = 3*m_cLinks/2 + 3;
 
 	HashChoosePrimes(m_nHashLinks);
@@ -2856,7 +2859,7 @@ void CGraph::BuildLinkLookups(void)
 		ALERT(at_aiconsole, "Couldn't allocated Link Lookup Table.\n");
 		return;
 	}
-	for (int i = 0; i < m_nHashLinks; i++)
+	for (i = 0; i < m_nHashLinks; i++)
 	{
 		m_pHashLinks[i] = ENTRY_STATE_EMPTY;
 	}
