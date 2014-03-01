@@ -2899,7 +2899,8 @@ void CGraph::BuildRegionTables(void)
 	// Calculate regions for all the nodes.
 	//
 	//
-	for (int i = 0; i < 3; i++)
+	int i;
+	for (i = 0; i < 3; i++)
 	{
 		m_RegionMin[i] =  999999999.0; // just a big number out there;
 		m_RegionMax[i] = -999999999.0; // just a big number out there;
@@ -2929,7 +2930,8 @@ void CGraph::BuildRegionTables(void)
 
 	for (i = 0; i < 3; i++)
 	{
-		for (int j = 0; j < NUM_RANGES; j++)
+		int j;
+		for (j = 0; j < NUM_RANGES; j++)
 		{
 			m_RangeStart[i][j] = 255;
 			m_RangeEnd[i][j] = 0;
@@ -3063,7 +3065,8 @@ void CGraph :: ComputeStaticRoutingTables( void )
 
 				// Initialize Routing table to uncalculated.
 				//
-				for (int iFrom = 0; iFrom < m_cNodes; iFrom++)
+				int iFrom;
+				for (iFrom = 0; iFrom < m_cNodes; iFrom++)
 				{
 					for (int iTo = 0; iTo < m_cNodes; iTo++)
 					{
@@ -3279,7 +3282,8 @@ void CGraph :: ComputeStaticRoutingTables( void )
 					int nRoute = p - pRoute;
 					if (m_pRouteInfo)
 					{
-						for (int i = 0; i < m_nRouteInfo - nRoute; i++)
+						int i;
+						for (i = 0; i < m_nRouteInfo - nRoute; i++)
 						{
 							if (memcmp(m_pRouteInfo + i, pRoute, nRoute) == 0)
 							{
@@ -3371,7 +3375,8 @@ void CGraph :: TestRoutingTables( void )
 						//
 #if 1
 						float flDistance1 = 0.0;
-						for (int i = 0; i < cPathSize1-1; i++)
+						int i;
+						for (i = 0; i < cPathSize1-1; i++)
 						{
 							// Find the link from pMyPath[i] to pMyPath[i+1]
 							//
@@ -3425,7 +3430,7 @@ void CGraph :: TestRoutingTables( void )
 #endif
 							ALERT(at_aiconsole, "Routing is inconsistent!!!\n");
 							ALERT(at_aiconsole, "(%d to %d |%d/%d)1:", iFrom, iTo, iHull, iCap);
-							for (int i = 0; i < cPathSize1; i++)
+							for (i = 0; i < cPathSize1; i++)
 							{
 								ALERT(at_aiconsole, "%d ", pMyPath[i]);
 							}
@@ -3562,7 +3567,7 @@ void CNodeViewer::Spawn( )
 	ALERT( at_aiconsole, "%d nodes\n", m_nVisited );
 
 	m_iDraw = 0;
-	SetThink( DrawThink );
+	SetThink( &CNodeViewer::DrawThink );
 	pev->nextthink = gpGlobals->time;
 }
 
